@@ -7,11 +7,11 @@ from .models import Pedido
 class PedidoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Pedido
-        fields = ['id','procecador','placamae','placadevideo','memoria']
+        fields = ['id','procecador','placamae','placadevideo','memoria','cliente']
 
 class ClienteSerializer(serializers.HyperlinkedModelSerializer):
-   
+    pedidos = serializers.StringRelatedField(many=True)
     class Meta:
         model = Cliente
-        fields = ['id', 'nome', 'endereco']
+        fields = ['id', 'nome', 'endereco','pedidos']
  
