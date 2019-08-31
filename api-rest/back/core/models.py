@@ -18,12 +18,12 @@ class PlacaMae(models.Model):
     processadores = models.CharField(max_length=50)
     qtdeslots = models.IntegerField()
     totaldememoria = models.IntegerField()
-    videoIntegrado = models.BooleanField()
+    videoIntegrado = models.BooleanField() 
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, related_name='pedidos', on_delete=models.CASCADE)
     memorias = models.ManyToManyField(Memoria)
-    procecador = models.CharField(max_length=50)
-    placamae = models.CharField(max_length=50)
+    procecador = models.ForeignKey(Procecador, related_name='procecador', on_delete=models.CASCADE)
+    placamae = models.ForeignKey(PlacaMae, related_name='placamae', on_delete=models.CASCADE)
     placadevideo = models.CharField(max_length=50)
         

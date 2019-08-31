@@ -19,6 +19,8 @@ class MemoriaSerializer(serializers.HyperlinkedModelSerializer):
 
 class PedidoSerializer(serializers.ModelSerializer):
     memorias = MemoriaSerializer(many=True)
+    placamae = PlacaMaeSerializer()
+    procecador = ProcecadorSerializer()
     class Meta:
         model = Pedido
         fields = ['id','procecador','placamae','placadevideo','memorias','cliente']

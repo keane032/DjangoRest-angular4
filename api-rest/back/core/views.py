@@ -14,12 +14,6 @@ class ProcecadorViewSet(viewsets.ModelViewSet):
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-  
-    @action(detail=False)
-    def getdetail(self, request):
-        print("=================//===============")
-        print(request.data)
-        return Response({'status':'done'})
 
 class PlacaMaeViewSet(viewsets.ModelViewSet):
     queryset = PlacaMae.objects.all()
@@ -35,34 +29,47 @@ class PedidoViewSet(viewsets.ModelViewSet):
 
     def create(self,request):
         memo = request.data['memorias']
+        placa = request.data['placadevideo']
         querysetCliente = Cliente.objects.filter(id = request.data['cliente'])
-        
-        print(querysetCliente[0])
+        querysetPlacamae = PlacaMae.objects.get(id = request.data['placamae'])
+        querysetProcecador = Procecador.objects.get(id = request.data['processador'])
 
-        myPedido = Pedido.objects.create(cliente=querysetCliente[0],placadevideo="wqeeeee",procecador="qwe",placamae="wqe")
-        print(myPedido)
-        memoria = Memoria.objects.filter(id=memo)
-        myPedido.memorias.add(memoria[0])
-        print(memo)
-        print(memoria)
-        # pedidos = []
-        # pedidos.append(data)
-        # me = MemoriaSerializer(data=request.data['memoria'])
-       
-        # if newCliete.is_valid():
-        #     print(newCliete)
+        total = 0
+        for x in memo:
+            try:
+                memoria = Memoria.objects.get(id=x)
+                total = total + memoria.tamanho
+            except Exception as e:
+                print(total)
+                return Response({"status":"memoria nao cadastrada"}) 
+
+        if querysetPlacamae.processadores != querysetProcecador.marca:
+            return Response({"status":"porcessador incompativel"}) 
+
+        if querysetPlacamae.qtdeslots < len(memo) :
+            return Response({"status":"qtd memorias incompativel"}) 
+                
+        if querysetPlacamae.totaldememoria < total :
+            return Response({"status":"total memorias incompativel"})
+
+        if querysetPlacamae.videoIntegrado == False and placa == '' :
+            return Response({"status":"placa obrigatoria"}) 
+
+        if len(memo) == 0 :
+            return Response({"status":"memorias insuficiente"}) 
+
+        if not querysetPlacamae:
+            return Response({"status":"placamae inexistentes"})
+
+        if not querysetCliente:
+            return Response({"status":"usuario inexistentes"})
+
+        myPedido = Pedido.objects.create(placamae=querysetPlacamae,cliente=querysetCliente[0],placadevideo=placa,procecador=querysetProcecador)
+
+        for x in memo:
+            memoria = Memoria.objects.get(id=x)
+            if  memoria:
+                myPedido.memorias.add(memoria)
+                print(x)
+
         return Response({"status":"done"})
-
-        # if data.is_valid():
-
-        #     print(data.data)
-        #     memo = MemoriaSerializer(data=data.data['memoria'])
-        #     print(memo)
-        #     data.save()
-        # return Response(data.is_valid())
-
-
-    # @action(detail=True,methods=['post'])
-    # def criarpedido(self, request, pk):
-    #     print(request.data)
-    #     return Response({'status': 'ok'})
