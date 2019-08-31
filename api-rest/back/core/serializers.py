@@ -1,17 +1,31 @@
 from rest_framework import serializers
-from .models import Cliente
-from .models import Pedido
+from .models import Cliente, PlacaMae
+from .models import Pedido, Memoria , Procecador   
 
-# Serializers define the API representation.
+class ProcecadorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Procecador
+        fields = ['id','nome', 'marca']
 
-class PedidoSerializer(serializers.HyperlinkedModelSerializer):
+class PlacaMaeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PlacaMae
+        fields = ['id','nome','processadores','qtdeslots','totaldememoria','videoIntegrado']
+
+class MemoriaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Memoria
+        fields = ['id','marca','tamanho']
+
+class PedidoSerializer(serializers.ModelSerializer):
+    memorias = MemoriaSerializer(many=True)
     class Meta:
         model = Pedido
-        fields = ['id','procecador','placamae','placadevideo','memoria','cliente']
+        fields = ['id','procecador','placamae','placadevideo','memorias','cliente']
 
 class ClienteSerializer(serializers.HyperlinkedModelSerializer):
-    pedidos = serializers.StringRelatedField(many=True)
+    pedidos = PedidoSerializer(many=True, read_only=True)
     class Meta:
         model = Cliente
-        fields = ['id', 'nome', 'endereco','pedidos']
- 
+        fields = ['id', 'nome','pedidos']
+        
