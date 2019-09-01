@@ -16,6 +16,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_swagger'
 ]
 
 MIDDLEWARE = [

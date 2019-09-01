@@ -24,6 +24,24 @@ class MemoriaViewSet(viewsets.ModelViewSet):
     serializer_class = MemoriaSerializer   
 
 class PedidoViewSet(viewsets.ModelViewSet):
+    """
+    create:
+        Cria novo pedido.
+        Cria um pedido passando os parametros:
+            cliente(int),placamae(int),processador(int),placadevideo(string),memorias[int]
+        
+
+    retrieve:
+        Retorna uma instancia de pedido pelo id.
+
+    list:
+        Retorna todos pedidos.
+
+    delete:
+        Remove um pedido existente pelo id.
+
+    """
+ 
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
 
