@@ -5,7 +5,7 @@ from rest_framework import serializers
 class Cliente(models.Model):
     nome = models.CharField(max_length=50)
 
-class Procecador(models.Model):
+class Processador(models.Model):
     nome = models.CharField(max_length=50)  
     marca = models.CharField(max_length=50) 
 
@@ -23,7 +23,7 @@ class PlacaMae(models.Model):
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, related_name='pedidos', on_delete=models.CASCADE)
     memorias = models.ManyToManyField(Memoria)
-    procecador = models.ForeignKey(Procecador, related_name='procecador', on_delete=models.CASCADE)
+    processador = models.ForeignKey(Processador, related_name='procecador', on_delete=models.CASCADE)
     placamae = models.ForeignKey(PlacaMae, related_name='placamae', on_delete=models.CASCADE)
     placadevideo = models.CharField(max_length=50)
         

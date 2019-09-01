@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Cliente, PlacaMae
-from .models import Pedido, Memoria , Procecador   
+from .models import Pedido, Memoria, Processador   
 
-class ProcecadorSerializer(serializers.HyperlinkedModelSerializer):
+class ProcessadorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Procecador
+        model = Processador
         fields = ['id','nome', 'marca']
 
 class PlacaMaeSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,10 +20,10 @@ class MemoriaSerializer(serializers.HyperlinkedModelSerializer):
 class PedidoSerializer(serializers.ModelSerializer):
     memorias = MemoriaSerializer(many=True)
     placamae = PlacaMaeSerializer()
-    procecador = ProcecadorSerializer()
+    processador = ProcessadorSerializer()
     class Meta:
         model = Pedido
-        fields = ['id','procecador','placamae','placadevideo','memorias','cliente']
+        fields = ['id','placamae','processador','placadevideo','memorias','cliente']
 
 class ClienteSerializer(serializers.HyperlinkedModelSerializer):
     pedidos = PedidoSerializer(many=True, read_only=True)

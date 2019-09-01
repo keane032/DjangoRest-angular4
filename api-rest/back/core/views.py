@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from rest_framework.decorators import action, api_view
 from rest_framework import viewsets, generics
-from .models import Cliente, Pedido, Memoria, PlacaMae, Procecador
-from .serializers import ClienteSerializer, PedidoSerializer,MemoriaSerializer, PlacaMaeSerializer, ProcecadorSerializer
+from .models import Cliente, Pedido, Memoria, PlacaMae, Processador
+from .serializers import ClienteSerializer, PedidoSerializer,MemoriaSerializer, PlacaMaeSerializer, ProcessadorSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 import json
 
-class ProcecadorViewSet(viewsets.ModelViewSet):
-    queryset = Procecador.objects.all()
-    serializer_class = ProcecadorSerializer
+class ProcessadorViewSet(viewsets.ModelViewSet):
+    queryset = Processador.objects.all()
+    serializer_class = ProcessadorSerializer
 
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
@@ -32,7 +32,7 @@ class PedidoViewSet(viewsets.ModelViewSet):
         placa = request.data['placadevideo']
         querysetCliente = Cliente.objects.filter(id = request.data['cliente'])
         querysetPlacamae = PlacaMae.objects.get(id = request.data['placamae'])
-        querysetProcecador = Procecador.objects.get(id = request.data['processador'])
+        querysetProcessador = Processador.objects.get(id = request.data['processador'])
 
         total = 0
         for x in memo:
@@ -40,10 +40,9 @@ class PedidoViewSet(viewsets.ModelViewSet):
                 memoria = Memoria.objects.get(id=x)
                 total = total + memoria.tamanho
             except Exception as e:
-                print(total)
                 return Response({"status":"memoria nao cadastrada"}) 
 
-        if querysetPlacamae.processadores != querysetProcecador.marca:
+        if querysetPlacamae.processadores != "BOTH" and querysetPlacamae.processadores != querysetProcessador.marca :
             return Response({"status":"porcessador incompativel"}) 
 
         if querysetPlacamae.qtdeslots < len(memo) :
@@ -64,7 +63,7 @@ class PedidoViewSet(viewsets.ModelViewSet):
         if not querysetCliente:
             return Response({"status":"usuario inexistentes"})
 
-        myPedido = Pedido.objects.create(placamae=querysetPlacamae,cliente=querysetCliente[0],placadevideo=placa,procecador=querysetProcecador)
+        myPedido = Pedido.objects.create(placamae=querysetPlacamae,cliente=querysetCliente[0],placadevideo=placa,processador=querysetProcessador)
 
         for x in memo:
             memoria = Memoria.objects.get(id=x)
