@@ -10,7 +10,7 @@ class ProcessadorSerializer(serializers.HyperlinkedModelSerializer):
 class PlacaMaeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PlacaMae
-        fields = ['id','nome','processadores','qtdeslots','totaldememoria','videoIntegrado']
+        fields = ['id','nome','processadores','qtd_eslots','total_memoria','video_integrado']
 
 class MemoriaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -19,11 +19,11 @@ class MemoriaSerializer(serializers.HyperlinkedModelSerializer):
 
 class PedidoSerializer(serializers.ModelSerializer):
     memorias = MemoriaSerializer(many=True)
-    placamae = PlacaMaeSerializer()
+    placa_mae = PlacaMaeSerializer()
     processador = ProcessadorSerializer()
     class Meta:
         model = Pedido
-        fields = ['id','placamae','processador','placadevideo','memorias','cliente']
+        fields = ['id','placa_mae','processador','placa_de_video','memorias','cliente']
 
 class ClienteSerializer(serializers.HyperlinkedModelSerializer):
     pedidos = PedidoSerializer(many=True, read_only=True)
