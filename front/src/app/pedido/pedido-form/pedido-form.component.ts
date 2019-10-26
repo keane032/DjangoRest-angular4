@@ -21,12 +21,11 @@ export class PedidoFormComponent implements OnInit {
 
   ngOnInit() {
     this.get_data()
-    // this.pedido.memorias = [1];
   }
   onSubmit(){
     this.pedidoService.create(this.pedido).subscribe(
       (res:any) => {
-          console.log(res)
+         console.log(res)
       }
     )
   }

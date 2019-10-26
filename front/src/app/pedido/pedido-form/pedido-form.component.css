@@ -1,0 +1,30 @@
+ form {
+    margin: 0 auto; 
+    align-self: center;
+    margin-bottom: 3%;
+    text-align: center;
+    background-color: darkcyan
+}
+    .container{
+        width: 50%
+    }
+
+    .form-control {
+        align-items: center;
+        margin: 0 auto; 
+        width: 60%;
+
+    }
+
+ h2 {
+    text-align: center
+ }
+
+ label {
+    margin-top: 2%;
+    text-align: center
+ }
+
+ button {
+    margin-bottom: 5%
+ }

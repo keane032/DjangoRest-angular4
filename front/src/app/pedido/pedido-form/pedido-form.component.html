@@ -1,36 +1,42 @@
 <div>
   <h2>Register Pedido</h2>
 <hr>
-<div>
-<form (ngSubmit)="onSubmit()">
+<div class="container">
+<form class="align-items-center" (ngSubmit)="onSubmit()">
   
+  <label for="idcliente">Id do Usuraio</label>
   <div class="form-group">
-    <label for="idcliente">Iduser</label>
-    <input type="number" name="idcliente" id="idcliente" [(ngModel)]="pedido.cliente">
+    <input type="number" class="form-control" name="idcliente" id="idcliente" [(ngModel)]="pedido.cliente">
   </div>
 
+  <label for="placa_de_video">Placa de video</label>
   <div class="form-group">
-    <label for="placa_de_video">Placa de video</label>
-    <input type="text" name="placa_de_video" id="placadevideo"
+    <input type="text" class="form-control" name="placa_de_video" id="placadevideo"
      [(ngModel)]="pedido.placadevideo">
   </div>
 
   <label for="processador">Procecador</label>
-  <select name="procList"  [(ngModel)]="pedido.processador" form="procform">
+  <div class="form-group">
+  <select name="procList" class="form-control" [(ngModel)]="pedido.processador" form="procform">
     <option *ngFor="let item of processadores" [value]="item.id">{{item.nome}}</option>
   </select>
-
+  </div>
   <br>
+
   <label for="placamae">Placa Mae</label>
-  <select name="placaList"  [(ngModel)]="pedido.placamae" form="placaform">
+  <div class="form-group">
+  <select name="placaList" class="form-control" [(ngModel)]="pedido.placamae" form="placaform">
     <option *ngFor="let item of placas_mae" [value]="item.id">{{item.nome}}</option>
   </select>
+  </div>
   <br>
 
   <label for="pmemoria">Memorias</label>
-  <select name="memoList"  [(ngModel)]="pedido.memorias" form="placaform">
+  <div class="form-group">
+  <select name="memoList" class="form-control"  [(ngModel)]="pedido.memorias" form="placaform">
     <option *ngFor="let item of memorias" [value]="item.id">{{item.marca}}</option>
   </select>
+  </div>
   <br>
   
   <button type="submit" class="btn btn-primary">Register</button>
