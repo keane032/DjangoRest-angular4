@@ -18,19 +18,19 @@ def pedidoValidator(memorias,placa_de_video,placa_mae,processador,cliente):
             raise NotFound({"erro":"mamoria nao cadastrada"})
 
     if placa_mae.processadores != "BOTH" and placa_mae.processadores != processador.marca :
-        raise ParseError({"status":"porcessador incompativel"}) 
+        raise ParseError({"erro":"porcessador incompativel"}) 
 
     if placa_mae.qtd_eslots < len(memorias) :
-        raise ParseError({"status":"qtd memorias incompativel"}) 
+        raise ParseError({"erro":"qtd memorias incompativel"}) 
             
     if placa_mae.total_memoria < total :
-        raise ParseError({"status":"total memorias incompativel"})
+        raise ParseError({"erro":"total memorias incompativel"})
 
     if placa_mae.video_integrado == False and placa_de_video == '' :
-        raise ParseError({"status":"placa obrigatoria"}) 
+        raise ParseError({"erro":"placa obrigatoria"}) 
 
     if len(memorias) == 0 :
-        raise ParseError({"status":"memorias insuficiente"}) 
+        raise ParseError({"erro":"memorias insuficiente"}) 
 
     myPedido = Pedido.objects.create(placa_mae=placa_mae,cliente=cliente[0],placa_de_video=placa_de_video,processador=processador)
 

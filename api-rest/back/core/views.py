@@ -105,11 +105,15 @@ class PedidoViewSet(viewsets.ModelViewSet):
 
     def create(self,request):
 
+        cliente = Cliente.objects.filter(id = request.data['cliente'])
+        
         placa_de_video = request.data['placadevideo']
+
+        if not placa_de_video:
+            raise ParseError({"erro":"insira o nome da placa de video"})
+
         if type(placa_de_video) != str:
             raise ParseError({"erro":"placa de video apenas aceita string"})
-        
-        cliente = Cliente.objects.filter(id = request.data['cliente'])
         
         if not cliente:
             raise ParseError({"erro":"user nao existe"})
