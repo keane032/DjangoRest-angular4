@@ -23,18 +23,22 @@ export class PedidoFormComponent implements OnInit {
     this.get_data()
   }
   onSubmit(){
+    console.log(this.pedido)
     this.pedidoService.create(this.pedido).subscribe(
       (res:any) => {
-         console.log(res)
+        alert("Pedido cadastrado")
+        window.location.reload();
+      },
+      (error : any)=>{
+        alert(error.error.erro)
       }
-    )
+      );
   }
 
   get_data(){
     this.pedidoService.get_processadores().subscribe(
       (res:any)=>{
         this.processadores=res
-        console.log(res)
       }
     )
     this.pedidoService.get_placamae().subscribe(

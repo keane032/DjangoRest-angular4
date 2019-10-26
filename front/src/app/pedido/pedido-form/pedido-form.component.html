@@ -34,7 +34,7 @@
   <label for="pmemoria">Memorias</label>
   <div class="form-group">
   <select name="memoList" class="form-control"  [(ngModel)]="pedido.memorias" form="placaform">
-    <option *ngFor="let item of memorias" [value]="item.id">{{item.marca}}</option>
+    <option *ngFor="let item of memorias" [value]="item.id">{{item.marca}} - {{item.tamanho}}</option>
   </select>
   </div>
   <br>
