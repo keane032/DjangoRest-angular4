@@ -1,0 +1,14 @@
+<h2>Register User</h2>
+<hr>
+<div>
+<form (ngSubmit)="onSubmit()">
+    
+  <div class="form-group">
+    <label for="nome">nome</label>
+    <input type="text" name="nome" id="nome" [(ngModel)]="user.nome">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Register</button>
+
+</form>
+</div>
