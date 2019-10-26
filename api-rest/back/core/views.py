@@ -109,9 +109,13 @@ class PedidoViewSet(viewsets.ModelViewSet):
         if type(placa_de_video) != str:
             raise ParseError({"erro":"placa de video apenas aceita string"})
         
+        cliente = Cliente.objects.filter(id = request.data['cliente'])
+        
+        if not cliente:
+            raise ParseError({"erro":"user nao existe"})
+
         try:
             memorias = request.data['memorias']
-            cliente = Cliente.objects.filter(id = request.data['cliente'])
             placa_mae = PlacaMae.objects.get(id = request.data['placamae'])
             processador = Processador.objects.get(id = request.data['processador'])
         except Exception as e:
