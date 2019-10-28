@@ -68,7 +68,6 @@ class MemoriaViewSet(viewsets.ModelViewSet):
     create:
         Cadastra uma nova memoria.
 
-
     retrieve:
         Retorna uma instancia de memoria pelo id.
 
@@ -105,25 +104,19 @@ class PedidoViewSet(viewsets.ModelViewSet):
 
     def create(self,request):
 
-        cliente = Cliente.objects.filter(id = request.data['cliente'])
+        try:
+            cliente = Cliente.objects.filter(id = request.data['cliente'])
+            if not cliente:
+                raise ParseError({"erro":"prencha todos os campos corretamente"})
+            placa_de_video = request.data['placadevideo']
+            processador = Processador.objects.get(id = request.data['processador'])
+            placa_mae = PlacaMae.objects.get(id = request.data['placamae'])
+            memorias = request.data['memorias']
+        except Exception as e:
+            raise ParseError({"erro":"prencha todos os campos corretamente"})
         
-        placa_de_video = request.data['placadevideo']
-
-        if not placa_de_video:
-            raise ParseError({"erro":"insira o nome da placa de video"})
-
         if type(placa_de_video) != str:
             raise ParseError({"erro":"placa de video apenas aceita string"})
-        
-        if not cliente:
-            raise ParseError({"erro":"user nao existe"})
-
-        try:
-            memorias = request.data['memorias']
-            placa_mae = PlacaMae.objects.get(id = request.data['placamae'])
-            processador = Processador.objects.get(id = request.data['processador'])
-        except Exception as e:
-            raise ParseError({"erro":e})
         
         return pedidoValidator(memorias=memorias,placa_de_video=placa_de_video,placa_mae=placa_mae,processador=processador,cliente=cliente)
 
