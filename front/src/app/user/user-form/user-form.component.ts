@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../model/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
@@ -19,10 +20,14 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit(form:NgForm){
     this.userService.create(this.user).subscribe(
       (res:any) => {
-          console.log(res)
+          alert("Usuario cadastrado :0 sue identificador " + res.id)
+          form.reset()
+      },
+      (erro:any) => {
+            alert("campo nome obrigatorio")
       }  
     );
   }

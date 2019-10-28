@@ -27,6 +27,7 @@ const rotas: Routes = [
     FormsModule,
     HttpClientModule,
     PedidoModule,
+    RouterModule,
     RouterModule.forRoot(rotas)
   ],
   providers: [],

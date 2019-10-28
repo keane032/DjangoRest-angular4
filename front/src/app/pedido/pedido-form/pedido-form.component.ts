@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from 'src/app/model/pedido.model';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -22,12 +23,12 @@ export class PedidoFormComponent implements OnInit {
   ngOnInit() {
     this.get_data()
   }
-  onSubmit(){
+  onSubmit(form:NgForm){
     console.log(this.pedido)
     this.pedidoService.create(this.pedido).subscribe(
       (res:any) => {
         alert("Pedido cadastrado")
-        window.location.reload();
+        form.reset()
       },
       (error : any)=>{
         alert(error.error.erro)

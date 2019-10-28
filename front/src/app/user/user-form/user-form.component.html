@@ -1,11 +1,14 @@
-<h2>Register User</h2>
+<div class="header">
+  <h2>Register User</h2>
+  <a routerLink="/pedido/novo">Criar pedido</a>
+</div>
 <hr>
-<div>
-<form (ngSubmit)="onSubmit()">
+<div class="container">
+<form #userForm (ngSubmit)="onSubmit(userForm)">
     
+  <label for="nome">Nome</label>
   <div class="form-group">
-    <label for="nome">nome</label>
-    <input type="text" name="nome" id="nome" [(ngModel)]="user.nome">
+    <input type="text" class="form-control" name="nome" id="nome" [(ngModel)]="user.nome">
   </div>
 
   <button type="submit" class="btn btn-primary">Register</button>

@@ -1,10 +1,16 @@
 <div>
+
+<div class="header">
   <h2>Register Pedido</h2>
+  <a routerLink="/user/novo">Criar usuario</a>
+</div>
+
 <hr>
+
 <div class="container">
-<form class="align-items-center" (ngSubmit)="onSubmit()">
+<form #pedidoForm class="align-items-center" (ngSubmit)="onSubmit(pedidoForm)">
   
-  <label for="idcliente">Id do Usuraio</label>
+  <label for="idcliente">Cliente</label>
   <div class="form-group">
     <input type="number" class="form-control" name="idcliente" id="idcliente" [(ngModel)]="pedido.cliente">
   </div>
@@ -26,7 +32,7 @@
   <label for="placamae">Placa Mae</label>
   <div class="form-group">
   <select name="placaList" class="form-control" [(ngModel)]="pedido.placamae" form="placaform">
-    <option *ngFor="let item of placas_mae" [value]="item.id">{{item.nome}}</option>
+    <option *ngFor="let item of placas_mae" [value]="item.id">{{item.nome}} - {{item.qtd_eslots}} - {{item.total_memoria}} - {{item.processadores}}</option>
   </select>
   </div>
   <br>
@@ -40,7 +46,6 @@
   <br>
   
   <button type="submit" class="btn btn-primary">Register</button>
-
 </form>
 </div>
 </div>
